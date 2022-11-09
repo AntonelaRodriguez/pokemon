@@ -3,10 +3,10 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('pokemon', {
+  sequelize.define('Pokemon', {
     id:{
       type: DataTypes.UUID, // ID unica para que no se repita con los de Api
-      defaultValue: DataTypes.UUID, // Si no se provee una se hace automaticamente un que no se repita con los de Api
+      defaultValue: DataTypes.UUIDV4, // Si no se provee una se hace automaticamente un que no se repita con los de Api
       allowNull: false, // No te permito que este vacio
       primaryKey: true // Va a ser la PK
     },
