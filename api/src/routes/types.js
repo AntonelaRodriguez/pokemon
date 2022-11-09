@@ -20,7 +20,7 @@ try{
     res.status(200).json(await Type.findAll());
 } catch(e){
     res.status(404).json(e.message);
-}
-})
+};
+});
 
 module.exports = router;

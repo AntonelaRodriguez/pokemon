@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 
 const allInfo = async () => {
@@ -21,8 +21,8 @@ const allInfo = async () => {
                     type: pokemon.types.map((t) => t.type.name)
                     
       });
-    }
-    }
+    };
+    };
 
     const db = await Pokemon.findAll({ include: {model: Type}});
     let pokemonInfoDb = [];
@@ -36,65 +36,103 @@ const allInfo = async () => {
                 name: db[i].name,
                 type: db[i].Types.map(el=>el.name)
                 
-            })
-        }
-    }
+            });
+        };
+    };
 
     const all = [...pokemonInfoApi, ...pokemonInfoDb];
     return all;
 }
 
-const allInfoDetails = async () => {
-    const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=10")
-        .then(response => response.data);
-    
-    let base = apiUrl.results;
-
-    let pokemonInfoApi = [];
-    for(let i=0; i < base.length; i++){
-        if (!base[i]) return pokemonInfoApi;
-        if (base[i].url) {
-            const pokemon = await axios.get(base[i].url)
-                .then(response => response.data);
-
-                pokemonInfoApi.push({
-                    id: pokemon.id,
-                    img: pokemon.sprites.versions["generation-v"]["black-white"].animated.front_default,
-                    name: pokemon.name,
-                    type: pokemon.types.map((t) => t.type.name),
-                    hp: pokemon.hp,
-                    attack: pokemon.attack,
-                    defense: pokemon.defense,
-                    speed: pokemon.speed,
-                    height: pokemon.height,
-                    weight: pokemon.weight,
+const pokemonByName = async (name) => {
+    try{
+    const pokemonDb = await Pokemon.findOne({
+        where: {
+          name: name,
+        },
+        include: Type,
       });
-    }
-    }
+    if (pokemonDb) {
+        const pokemonInfoDb = [
+          {
+            id: pokemonDb.id,
+            img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
+            name: pokemonDb.name,
+            type: pokemonDb.Types.map((el) => el.name),
+          },
+        ];
+        return pokemonInfoDb;
+    }  else {
+        const pokemonApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+            .then(response => response.data);
+            
+        const pokemonInfoApi = [
+          {
+            id: pokemonApi.id,
+            img: pokemonApi.sprites.versions["generation-v"]["black-white"].animated
+              .front_default,
+            name: pokemonApi.name,
+            type: pokemonApi.types.map((t) => t.type.name),
+          },
+        ];
+        return pokemonInfoApi;
+    };
+    } catch(e){
+        return [];
+    };
+};
 
-    const db = await Pokemon.findAll({ include: {model: Type}});
-    let pokemonInfoDb = [];
-    for(let i=0; i < db.length; i++){
-        if (db.length === 0) {
-            return pokemonInfoDb;
-        } else {
-            pokemonInfoDb.push({
-                id: db[i].id,
-                img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
-                name: db[i].name,
-                type: db[i].Types.map(el=>el.name),
-                hp: db[i].hp,
-                attack: db[i].attack,
-                defense: db[i].defense,
-                speed: db[i].speed,
-                height: db[i].height,
-                weight: db[i].weight,
-            })
-        }
+
+const allInfoDetails = async (id) => {
+    try{
+    if(id.length > 3){
+        const newId = id.toString();
+        const pokemonDb = await Pokemon.findOne({
+            where: {
+              id: newId,
+            },
+            include: Type,
+          });
+          const pokemonInfoDb = [
+            {
+              id: pokemonDb.id,
+              img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
+              name: pokemonDb.name,
+              type: pokemonDb.Types.map((el) => el.name),
+              hp: pokemonDb.hp,
+              attack: pokemonDb.attack,
+              defense: pokemonDb.defense,
+              speed: pokemonDb.speed,
+              height: pokemonDb.height,
+              weight: pokemonDb.weight,
+            },
+          ];
+          return pokemonInfoDb;
+    } else {
+        
+        const pokemonApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then(response => response.data);
+            
+        const pokemonInfoApi = [
+          {
+            id: pokemonApi.id,
+            img: pokemonApi.sprites.versions["generation-v"]["black-white"].animated
+              .front_default,
+            name: pokemonApi.name,
+            type: pokemonApi.types.map((t) => t.type.name),
+            hp: pokemonApi.hp,
+            attack: pokemonApi.attack,
+            defense: pokemonApi.defense,
+            speed: pokemonApi.speed,
+            height: pokemonApi.height,
+            weight: pokemonApi.weight,
+          },
+        ];
+        return pokemonInfoApi;
     }
+    } catch(e){
+        return [];
+    };
+};
 
-    const all = [...pokemonInfoApi, ...pokemonInfoDb];
-    return all;
-}
-
-module.exports = { allInfo, allInfoDetails};
+module.exports = { allInfo, allInfoDetails, pokemonByName};

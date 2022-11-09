@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { allInfo, allInfoDetails } = require('../middlewares/middleware')
+const { allInfo, allInfoDetails, pokemonByName } = require('../middlewares/middleware');
 const { Pokemon, Type } = require('../db');
 
 const router = Router();
@@ -8,11 +8,11 @@ router.get('/', async (req, res) => {
     const { name } = req.query;
     if(name){
         try{
-            let pokemonName = name.toLowerCase()
-            const allPokemons = await allInfo();
-            let pokemon = allPokemons.filter(el => {
-                return el.name === pokemonName;
-            });
+            const pokemonName = name.toLowerCase();
+            const pokemon = await pokemonByName(pokemonName);
+
+            if(pokemon.length < 1) throw new Error("That pokemon doesn't exists in the pokedex");
+
             res.status(200).json(pokemon);
         } catch(e) {
             res.status(404).json(e.message);
@@ -20,22 +20,29 @@ router.get('/', async (req, res) => {
     } else{
         try{
             const info = await allInfo();
-            res.status(200).send(info)
+            res.status(200).send(info);
         } catch(e) {
             res.status(404).json(e.message);
         }
-    }
-})
+    };
+});
 
 router.post("/", async (req,res) => {
     try {
         const { name, hp, attack, defense, speed, height, weight, createdInDb, types } = req.body;
+
         if(
             isNaN(hp) || isNaN(attack) || isNaN(defense) || isNaN(speed) || isNaN(height) || isNaN(weight)
-        ) return res.status(404).send("One of the arguments is not a number");
-        if(!name) return res.status(404).send("Name is required");
+        ) throw new Error("One of the arguments is not a number");
+
+        if(!name) throw new Error("Name is required");
+
+        let newName = name.toLowerCase();
+        const exists = await Pokemon.findOne({ where: { name: newName } });
+        if (exists) throw new Error("That pokemon already exists in the pokedex");
+
         const newPokemon = await Pokemon.create({
-            name: name.toLowerCase(),
+            name: newName,
             hp,
             attack,
             defense,
@@ -44,26 +51,26 @@ router.post("/", async (req,res) => {
             weight,
             createdInDb
         });
+
         let typeOfPokemon = await Type.findAll({ where: { name: types } });
         newPokemon.addType(typeOfPokemon);
+
         res.status(200).json(newPokemon);
     } catch(e) {
-        res.status(404).send(e.message)
-    }
+        res.status(404).send(e.message);
+    };
 });
 
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
     try{
-        let detail = await allInfoDetails();
-        let pokemon = detail.filter((el) => {
-            return el.id.toString() === id;
-        });
-        if(pokemon.length < 1) throw new Error("No hay detalles de este pokemon");
-        res.status(200).json(pokemon);
+        const { id } = req.params;
+        let detail = await allInfoDetails(id);
+        if(detail.length < 1) throw new Error("That pokemon doesn't exists in the pokedex");
+
+        res.status(200).json(detail);
     } catch(e) {
-        res.status(404).send(e.message)
+        res.status(404).send(e.message);
     }
-})
+});
 
 module.exports = router;
