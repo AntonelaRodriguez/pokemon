@@ -7,7 +7,7 @@ export default function LandingPage(){
         <div>
             <h1>Let's discover them all!</h1>
             <Link to='/home'>
-                <button>Home</button>
+                <button>Find them</button>
             </Link>
         </div>
     )
