@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllPokemons } from "../../redux/actions";
+import Filter from "../filters/Filters";
+import NavBar from "../navBar/NavBar";
+import Pagination from "../pagination/Pagination";
 import PokemonCard from "../pokemonCard/PokemonCard";
 
 export default function Home() {
@@ -13,12 +16,25 @@ export default function Home() {
     useEffect(() => {
         dispatch(getAllPokemons());
     },[dispatch]);
-    console.log(pokemons)
+    
+    //--------- PAGINATION ------------------//
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
+    const lastPokemon = currentPage * pokemonsPerPage;
+    const firstPokemon = lastPokemon - pokemonsPerPage;
+    const currentsPokemons = pokemons.slice(firstPokemon, lastPokemon);
+
+    const pagination = (page) => {
+        setCurrentPage(page);
+    };
+
     return(
         <div>
+            <NavBar/>
+            <Filter/>
             <h1>Pokemons</h1>
             {
-                pokemons && pokemons.map((el) => {
+                currentsPokemons && currentsPokemons.map((el) => {
                     return <Link to={`/home/${el.id}`}>
                     <PokemonCard
                         key={el.id}
@@ -31,6 +47,11 @@ export default function Home() {
                     </Link>
                 })
             }
+            <Pagination
+                pokemonsPerPage={pokemonsPerPage}
+                pokemons={pokemons.length}
+                pagination={pagination}
+            />
         </div>
     )
 }

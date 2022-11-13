@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import SearchBar from '../searchBar/SearchBar';
 
-export default function NavBar() {
+const NavBar = () => {
 
     return(
         <div>
-            <button>Create Pokemon</button>
+            <Link to='/create'><button>Create Pokemon</button></Link>
             <Link to='/home'><button>Find them All!</button></Link>
-            <button>Landing Page</button>
+            <Link to='/'><button>Landing Page</button></Link>
 
             <img src='../../assets/png-clipart-pokemon-logo-pokemon-logo.png' />
 
@@ -17,3 +17,5 @@ export default function NavBar() {
         </div>
     )
 };
+
+export default NavBar;

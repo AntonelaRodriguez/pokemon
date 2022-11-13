@@ -1,25 +1,14 @@
 import axios from 'axios';
-export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
-// export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-
 
 export const getAllPokemons = () => {
     return async function(dispatch){
-        return fetch('http://localhost:3001/pokemons')
-            .then((respose) => respose.json())
-            .then(allPokemons => dispatch({type: GET_ALL_POKEMONS, payload: allPokemons}))
+        let json = await axios.get('http://localhost:3001/pokemons')
+            return dispatch({type: "GET_ALL_POKEMONS", payload: json.data})
     };
 };
 
-// export const getPokemonDetail = (id) => {
-//     return async function(dispatch) {
-//         return fetch(`http://localhost:3001/pokemons/${id}`)
-//             .then((response) => response.json())
-//             .then(detail => dispatch({type: GET_POKEMON_DETAIL, payload: detail}))
-//     };
-// };
 
-export function getPokemonByName(name) {
+export const getPokemonByName = (name) => {
     return async function(dispatch) {
         try{
             let json = await axios.get(`http://localhost:3001/pokemons?name=${name}`);
@@ -30,7 +19,7 @@ export function getPokemonByName(name) {
     };
 };
 
-export function getPokemonDetail(id) {
+export const getPokemonDetail = (id) => {
     return async function(dispatch) {
         try{
             let json = await axios.get(`http://localhost:3001/pokemons/${id}`);
@@ -40,3 +29,25 @@ export function getPokemonDetail(id) {
         }
     };
 };
+
+export const getTypes = () => {
+    return async function(dispatch) {
+        try{
+            let types = await axios.get('http://localhost:3001/types')
+            return dispatch({type:'GET_TYPES', payload: types.data})
+        } catch(e) {
+            console.log(e);
+        }
+    }
+}
+
+export const postPokemon = (newPokemon) => {
+    return async function(dispatch) {
+        try{
+            let pokemon = await axios.post('http://localhost:3001/pokemons', newPokemon)
+            return pokemon;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+}
