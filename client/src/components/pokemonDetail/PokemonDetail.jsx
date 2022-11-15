@@ -1,10 +1,13 @@
-import './pokemonDetail.css'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getPokemonDetail } from "../../redux/actions/index";
+import './pokemonDetail.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cleanDetail, getPokemonDetail } from "../../redux/actions/index";
 import DetailCard from '../detailCard/DetailCard';
+import LoadingPage from '../loadingPage/LoadingPage';
+import Error404 from '../error404/error404';
 
-export default function PokemonDetail(props) {
+
+const PokemonDetail = (props) => {
 
     const dispatch = useDispatch();
     const pokemonId = props.match.params.id;
@@ -12,16 +15,22 @@ export default function PokemonDetail(props) {
 
     useEffect(() =>{
         dispatch(getPokemonDetail(pokemonId))
+        return function(){
+            dispatch(cleanDetail())
+        }
     }, [dispatch, pokemonId]);
 
     const pokemon = useSelector((state) => state.pokemonDetail);
-    console.log(pokemon)
+    const error = useSelector((state) => state.error);
+    console.log(pokemon);
 
     return(
         <div>
             <h3>Pokemon</h3>
-            {
-                pokemon && pokemon.map((el) => {
+            { error ? (
+                <Error404/>
+            ) :
+                pokemon.length > 0 ? pokemon.map((el) => {
                     return <DetailCard
                         key={el.id}
                         id={el.id}
@@ -35,8 +44,10 @@ export default function PokemonDetail(props) {
                         height={el.height}
                         weight={el.weight}
                     />
-                })
+                }) : <LoadingPage/>
             }
         </div>
-    )
-}
+    );
+};
+
+export default PokemonDetail;

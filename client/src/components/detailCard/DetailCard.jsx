@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DetailCard({image, name, type, id, hp, attack, defense, speed, height, weight}) {
+const DetailCard =({image, name, type, id, hp, attack, defense, speed, height, weight}) => {
     return(
         <div className='Card'>
             <img src={image} alt='Image not found' />
@@ -16,5 +16,7 @@ export default function DetailCard({image, name, type, id, hp, attack, defense, 
             <h4>Weight: {weight}</h4>
             
         </div>
-    )
-}
+    );
+};
+
+export default DetailCard;

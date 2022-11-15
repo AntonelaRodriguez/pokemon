@@ -52,6 +52,9 @@ module.exports = (sequelize) => {
     weight: {
       type: DataTypes.INTEGER,
     },
+    img: {
+      type: DataTypes.STRING,
+    },
     // Para hacer una distincion entre lo que trae la api y la base de datos
     createdInDb: {
       type: DataTypes.BOOLEAN,

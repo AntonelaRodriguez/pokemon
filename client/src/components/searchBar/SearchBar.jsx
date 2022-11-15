@@ -1,22 +1,22 @@
 import React from 'react';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemonByName } from  '../../redux/actions/index'
+import { getPokemonByName } from  '../../redux/actions/index';
 
-export default function SearchBar() {
+const SearchBar = () => {
     const dispatch = useDispatch();
     const [pokemonName, setPokemonName] = useState("");
 
     function handleChange(e) {
         e.preventDefault();
-        setPokemonName(e.target.value)
-        console.log(pokemonName)
-    }
+        setPokemonName(e.target.value);
+        console.log(pokemonName);
+    };
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(getPokemonByName(pokemonName))
-    }
+        dispatch(getPokemonByName(pokemonName));
+    };
 
     return(
         <div>
@@ -27,5 +27,7 @@ export default function SearchBar() {
             />
             <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button>
         </div>
-    )
+    );
 };
+
+export default SearchBar;

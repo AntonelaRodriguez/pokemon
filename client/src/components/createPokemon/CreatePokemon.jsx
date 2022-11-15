@@ -1,7 +1,27 @@
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPokemon, getTypes } from "../../redux/actions/index";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+
+export const validate = (input) => {
+    let error = {};
+    if(!input.name) error.name = "Pokemon's name is required!";
+
+    if(input.hp > 100) error.hp = "Your pokemon can't have more than 100 hp.";
+    if(input.hp < 0) error.hp = "Your pokemon can't have less than 1 hp.";
+
+    if(input.attack > 100) error.attack = "Your pokemon can't have more than 100 of attack power.";
+    if(input.attack < 0) error.attack = "Your pokemon can't have less than 1 of attack power.";
+
+    if(input.defense > 100) error.defense = "Your pokemon can't have more than 100 of defense.";
+    if(input.defense < 0) error.defense = "Your pokemon can't have less than 1 of defense.";
+
+    if(input.speed > 100) error.speed = "Your pokemon can't have more than 100 of speed.";
+    if(input.speed < 0) error.speed = "Your pokemon can't have less than 1 of speed.";
+
+    return error;
+}
+
 
 const CreatePokemon = () => {
     
@@ -16,32 +36,38 @@ const CreatePokemon = () => {
         speed: "",
         height: "",
         weight: "",
-        types: [],
+        type: [],
+        img: "",
     });
+    const [error, setError] = useState({});
 
     useEffect(() => {
         dispatch(getTypes())
-    }, [dispatch])
+    }, [dispatch]);
 
     const handleChange = (event) => {
         setInput({
             ...input,
             [event.target.name] : event.target.value
-        })
+        });
+        setError(validate({
+            ...input,
+            [event.target.name] : event.target.value
+        }));
     };
 
     const handleSelect = (event) => {
         setInput({
             ...input,
-            types: [...input.types, event.target.value]
-        })
+            type: [...input.type, event.target.value]
+        });
     };
 
     const handleDelete = (type) => {
         setInput({
             ...input,
-            types: input.types.filter((t) => t !== type)
-        })
+            type: input.type.filter((t) => t !== type)
+        });
     };
 
     const handleSubmit = (event) => {
@@ -56,9 +82,10 @@ const CreatePokemon = () => {
             speed: "",
             height: "",
             weight: "",
-            types: [],
-        })
-    }
+            type: [],
+            img: "",
+        });
+    };
 
     return(
         <div>
@@ -72,6 +99,11 @@ const CreatePokemon = () => {
                     placeholder="Type your pokemon name..."
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.name && (
+                        <p className="danger">{error.name}</p>
+                    )
+                }
 
                 <label>Hp:</label>
                 <input
@@ -81,6 +113,11 @@ const CreatePokemon = () => {
                     placeholder="1-100"
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.hp && (
+                        <p className="danger">{error.hp}</p>
+                    )
+                }
 
                 <label>Attack:</label>
                 <input
@@ -90,6 +127,11 @@ const CreatePokemon = () => {
                     placeholder="1-100"
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.attack && (
+                        <p className="danger">{error.attack}</p>
+                    )
+                }
 
                 <label>Defense:</label>
                 <input
@@ -99,6 +141,11 @@ const CreatePokemon = () => {
                     placeholder="1-100"
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.defense && (
+                        <p className="danger">{error.defense}</p>
+                    )
+                }
 
                 <label>Speed:</label>
                 <input
@@ -108,6 +155,11 @@ const CreatePokemon = () => {
                     placeholder="1-100"
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.speed && (
+                        <p className="danger">{error.speed}</p>
+                    )
+                }
 
                 <label>Height:</label>
                 <input
@@ -129,21 +181,23 @@ const CreatePokemon = () => {
 
                 <label>Types:</label>
                 <select 
+                    disabled={input.type.length > 2}
                     onChange={(e) => handleSelect(e)}
-                    // defaultValue="titlle"
+                    defaultValue="title"
                 >
-                    <option value="title" name="types">
+                    <option value="title" name="type" disabled>
                         Select your type of Pokemon...
                     </option>
                     {
                         pokemonTypes && pokemonTypes.map((el) => {
-                            return <option value={el.name} key={el.id}>
+                            return (<option value={el.name} key={el.id}>
                                 {el.name}
                             </option>
+                            )
                         })
                     }
                 </select>
-                {input.types && input.types.map((t, index) =>{
+                {input.type && input.type.map((t, index) =>{
                     return(
                     <div key={index}>
                         <span>{t}</span>
@@ -151,6 +205,14 @@ const CreatePokemon = () => {
                     </div>
                     )
                 })}
+                <label>Pokemon image: </label>
+                <input 
+                type="url"
+                name="img"
+                value={input.img}
+                placeholder="Url image..."
+                onChange={(e) => handleChange(e)}
+                 />
 
                 <button type="submit">Create Pokemon !</button>
             </form>

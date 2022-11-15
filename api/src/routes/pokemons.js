@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 
 router.post("/", async (req,res) => {
     try {
-        const { name, hp, attack, defense, speed, height, weight, createdInDb, types } = req.body;
+        const { name, hp, attack, defense, speed, height, weight, img, createdInDb, type } = req.body;
 
         if(
             isNaN(hp) || isNaN(attack) || isNaN(defense) || isNaN(speed) || isNaN(height) || isNaN(weight)
@@ -49,10 +49,11 @@ router.post("/", async (req,res) => {
             speed,
             height,
             weight,
+            img,
             createdInDb
         });
 
-        let typeOfPokemon = await Type.findAll({ where: { name: types } });
+        let typeOfPokemon = await Type.findAll({ where: { name: type } });
         newPokemon.addType(typeOfPokemon);
 
         res.status(200).json(newPokemon);

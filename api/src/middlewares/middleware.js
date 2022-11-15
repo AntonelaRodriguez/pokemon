@@ -18,7 +18,9 @@ const allInfo = async () => {
                     id: pokemon.id,
                     img: pokemon.sprites.versions["generation-v"]["black-white"].animated.front_default,
                     name: pokemon.name,
-                    type: pokemon.types.map((t) => t.type.name)
+                    type: pokemon.types.map((t) => t.type.name),
+                    createdInDb: false,
+                    attack: pokemon.stats[1].base_stat,
                     
       });
     };
@@ -32,10 +34,11 @@ const allInfo = async () => {
         } else {
             pokemonInfoDb.push({
                 id: db[i].id,
-                img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
+                img: db[i].img,
                 name: db[i].name,
-                type: db[i].Types.map(el=>el.name)
-                
+                type: db[i].Types.map(el=>el.name),
+                createdInDb: db[i].createdInDb,
+                attack: db[i].attack
             });
         };
     };
@@ -56,7 +59,7 @@ const pokemonByName = async (name) => {
         const pokemonInfoDb = [
           {
             id: pokemonDb.id,
-            img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
+            img: pokemonDb.img,
             name: pokemonDb.name,
             type: pokemonDb.Types.map((el) => el.name),
           },
@@ -96,7 +99,7 @@ const allInfoDetails = async (id) => {
           const pokemonInfoDb = [
             {
               id: pokemonDb.id,
-              img: "https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif",
+              img: pokemonDb.img,
               name: pokemonDb.name,
               type: pokemonDb.Types.map((el) => el.name),
               hp: pokemonDb.hp,
