@@ -1,9 +1,13 @@
 import React from "react";
+import './error404.css'
+import pikachu from '../../assets/pikachu.gif'
+import { Link } from "react-router-dom";
 
 const Error404 = () => {
     return(
-        <div>
-            <h2>Volver...</h2>
+        <div className="error-404">
+            <img src={pikachu} alt="" />
+            <h2>No matches found. Try again or go find all pokemons!</h2>
         </div>
     )
 }

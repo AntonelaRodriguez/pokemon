@@ -1,3 +1,4 @@
+import'./createPokemon.css';
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPokemon, getTypes } from "../../redux/actions/index";
@@ -88,8 +89,9 @@ const CreatePokemon = () => {
     };
 
     return(
-        <div>
-            <h2>Let's create your own Pokemon</h2>
+        <div className="create">
+            <div className='create-info'>
+            <h2>Let's create your own Pokemon!</h2>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <label>Name:</label>
                 <input
@@ -201,7 +203,7 @@ const CreatePokemon = () => {
                     return(
                     <div key={index}>
                         <span>{t}</span>
-                        <span onClick={() => handleDelete(t)}>X</span>
+                        <span className='delete' onClick={() => handleDelete(t)}>x</span>
                     </div>
                     )
                 })}
@@ -214,9 +216,10 @@ const CreatePokemon = () => {
                 onChange={(e) => handleChange(e)}
                  />
 
-                <button type="submit">Create Pokemon !</button>
+                <button className='btn-create' type="submit" disabled={Object.keys(error).length === 0 ? false : true}>Create Pokemon !</button>
             </form>
-            <Link to='/home'><button>Got to your Pokedex!</button></Link>
+            <Link to='/home'><button className='btn-home'>Got to your Pokedex!</button></Link>
+            </div>
         </div>
     )
 }

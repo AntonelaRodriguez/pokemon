@@ -1,6 +1,6 @@
 import React from "react";
 import './home.css'
-import logo from '../../assets/IPokemon.png'
+import logo from '../../assets/IPokemon.png';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -61,19 +61,24 @@ const Home = () => {
         dispatch(orderbyAlphabet(e.target.value));
         setCurrentPage(1);
         setOrder(`Ordered ${e.target.value}`);
-    }
+    };
 
     const orderAttack = (e) => {
         e.preventDefault();
         dispatch(orderByAttack(e.target.value));
         setCurrentPage(1);
         setOrder(`Ordered ${e.target.value}`);
-    }
+    };
+
+    const pageToOne = () => {
+        setCurrentPage(1);
+    };
     console.log(pokemons)
 
     return(
+         
         <div className="home">
-            <NavBar/>
+            <NavBar pageToOne={pageToOne}/>
 
             <img className='pokemons' src={logo} alt="" />
 
@@ -119,11 +124,11 @@ const Home = () => {
                 </li>
             </ul>
             </div>
-
-            <div className="grid-container">
+            
             { error ? (
-                <Error404/>
-            ) :
+            <Error404/>) :
+            <div className="grid-container">
+            { 
                 currentsPokemons.length > 0 ? currentsPokemons.map((el) => {
                     return <div>
                     <Link to={`/home/${el.id}`}>
@@ -139,6 +144,7 @@ const Home = () => {
                 }) : <LoadingPage/>
             }
             </div>
+            }
             <Pagination
                 pokemonsPerPage={pokemonsPerPage}
                 pokemons={pokemons.length}

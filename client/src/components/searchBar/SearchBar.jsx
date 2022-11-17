@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonByName } from  '../../redux/actions/index';
 
-const SearchBar = () => {
+const SearchBar = ({pageToOne}) => {
     const dispatch = useDispatch();
     const [pokemonName, setPokemonName] = useState("");
 
@@ -17,6 +17,7 @@ const SearchBar = () => {
     function handleSubmit(e){
         e.preventDefault();
         dispatch(getPokemonByName(pokemonName));
+        pageToOne();
     };
 
     return(

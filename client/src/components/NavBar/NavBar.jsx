@@ -7,7 +7,7 @@ import { getAllPokemons } from "../../redux/actions/index";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const NavBar = () => {
+const NavBar = ({pageToOne}) => {
     const dispatch = useDispatch();
     const pokemons = useSelector((state) => state.allPokemons);
 
@@ -32,7 +32,7 @@ const NavBar = () => {
             </div>
             
             <div className='searchBar'>
-                <SearchBar/>
+                <SearchBar pageToOne={pageToOne}/>
             </div>
             
         </div>

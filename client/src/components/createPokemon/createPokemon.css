@@ -1,0 +1,82 @@
+.create{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/677583.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+.create-info{
+    transform: translateX(-55%);
+}
+
+.create h2{
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.create form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+.create label{
+    font-size: 1.5em;
+    margin: 5px;
+}
+
+.create input {
+    border: 1px #6ec8e2 solid;
+    border-radius: 5px;
+}
+
+.create select{
+    border: 1px #6ec8e2 solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-create{
+    border: 1px black solid;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 1.3em;
+    background-color: #cdecee;
+    transition: all .2s ease-in-out;
+}
+
+.btn-create:hover {
+    transform: scale(1.1);
+}
+
+.btn-home{
+    border: 1px black solid;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 1.3em;
+    background-color: #cdecee;
+    transition: all .2s ease-in-out;
+}
+
+.btn-home:hover {
+    transform: scale(1.1);
+}
+
+.delete{
+    color: #FF0000;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
