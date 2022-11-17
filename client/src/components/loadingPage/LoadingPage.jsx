@@ -1,9 +1,11 @@
 import React from "react";
+import './loadingPage.css'
+import points from '../../assets/suspeinsive.gif'
 
 const LoadingPage = () => {
 return(
-    <div>
-        <h2>Cargando...</h2>
+    <div className="loading">
+        <h2>Loading...</h2>
     </div>
 )
 }

@@ -1,20 +1,21 @@
 import React from 'react';
+import './detailCard.css';
 
 const DetailCard =({image, name, type, id, hp, attack, defense, speed, height, weight}) => {
     return(
-        <div className='Card'>
+        <div className='card-detail'>
             <img src={image} alt='Image not found' />
-            <h3>{name}</h3>
-            <h5>{type}</h5>
-            <h4>ID: {id}</h4>
+            <h3>{name.toUpperCase()}</h3>
+            <h5>Type: {type}.</h5>
+            <h4>ID: {id}.</h4>
             <h4>Statistics: </h4>
-            <h5>HP: {hp}</h5>
-            <h5>Attack: {attack}</h5>
-            <h5>Defense: {defense}</h5>
-            <h5>Speed: {speed}</h5>
-            <h4>Height: {height}</h4>
-            <h4>Weight: {weight}</h4>
-            
+            <ul>
+                <li>Attack: {attack}.</li>
+                <li>Defense: {defense}.</li>
+                <li>Speed: {speed}.</li>
+            </ul>
+            <h4>Height: {height}.</h4>
+            <h4>Weight: {weight}.</h4>
         </div>
     );
 };

@@ -1,0 +1,52 @@
+.nav {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    background-color: #FF0000;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 10px;
+    list-style: none;
+}
+
+.btn {
+    font-family: 'VT323', monospace;
+    font-size: 1.2em;
+    color: black;
+    background: #B2E469;
+    border: 3px solid black;
+    border-radius: 10px 100px / 120px;
+    width: 120px;
+    height: 45px;
+    margin: 5px;
+    cursor: pointer;
+    transition: color 0.5s, background 0.5s;
+}
+
+.btn:hover {
+    background: #f6f8f3;
+    color: black;
+}
+
+.logo{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+} 
+
+.pokeball{
+    width: 40px;
+    height: 40px;
+}
+
+.searchBar{
+    display: flex;
+    align-items: center;
+    flex:1;
+    justify-content: end;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import './pagination.css';
 
 const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
     const page = [];
@@ -8,16 +9,14 @@ const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
     };
 
     return(
-        <div>
-            <ul>
+        <div className="pagination">
                 {
                     page && page.map((n) => (
-                        <li>
+                        <button>
                             <a onClick={() => pagination(n)}>{n}</a>
-                        </li>
+                        </button>
                     ))
                 }
-            </ul>
         </div>
     )
 };

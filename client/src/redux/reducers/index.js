@@ -44,7 +44,7 @@ const rootReducer = (state = initialState, action) => {
             allPokemons: filterType,
           };
         case 'FILTER_BY_CREATED_MODE':
-          const abAllPokemons1 = state.allPokemons;
+          const abAllPokemons1 = state.pokemons;
           const filterExistance = action.payload === "created" 
           ? abAllPokemons1.filter(el => el.createdInDb === true)
           : abAllPokemons1.filter(el => el.createdInDb === false);

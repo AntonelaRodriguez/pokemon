@@ -1,0 +1,19 @@
+.card{
+    height: 150px;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-img {
+    width: 100px;
+    height: 120px;
+    align-items: center;
+}
+
+.card-name {
+    font-size: 1.5em;
+}
+
+.card-type{
+    font-size: 1.2em;
+}

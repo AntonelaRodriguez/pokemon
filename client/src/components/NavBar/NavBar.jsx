@@ -1,4 +1,5 @@
 import './navBar.css';
+import pokeball from '../../assets/pokeball1.png';
 import React from 'react';
 import { Link } from "react-router-dom"
 import SearchBar from '../searchBar/SearchBar';
@@ -19,16 +20,21 @@ const NavBar = () => {
     };
 
     return(
-        <div>
-            <ul>
-                <li><Link to='/create'><button>Create Pokemon</button></Link></li>
-                <li><button onClick={(e) => handleClick(e)}>Find them All!</button></li>
-                <li><Link to='/'><button>Landing Page</button></Link></li>
-            </ul>
+        <div className='nav'>
+            <div className='boton'>
+                <Link to='/create'><button className='btn'>Create Pokemon</button></Link>
+                <button className='btn' onClick={(e) => handleClick(e)}>Find them All!</button>
+                <Link to='/'><button className='btn'>Landing Page</button></Link>
+            </div>
             
-            <img src='../../assets/png-clipart-pokemon-logo-pokemon-logo.png' />
-
-            <SearchBar/>
+            <div className='logo'>
+                <img src={pokeball} className='pokeball'/>
+            </div>
+            
+            <div className='searchBar'>
+                <SearchBar/>
+            </div>
+            
         </div>
     );
 };

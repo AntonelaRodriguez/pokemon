@@ -1,0 +1,30 @@
+.search{
+    display: flex;
+    align-items: center;
+    flex:1;
+    justify-content: end;
+    padding-right: 10px;
+}
+
+.searchInput{
+    border: 3px solid;
+    border-color: black;
+    border-radius: 10px 100px / 120px;
+    font-family: 'VT323', monospace;
+    font-size: 1.2em;
+}
+
+.btnSearch {
+    color: black;
+    background: #B2E469;
+    border: 3px solid;
+    border-color: black;
+    border-radius: 10px 100px / 120px;
+    cursor: pointer;
+    transition: color 0.5s, background 0.5s;
+}
+
+.btnSearch:hover {
+    background: #f6f8f3;
+    color: black;
+}

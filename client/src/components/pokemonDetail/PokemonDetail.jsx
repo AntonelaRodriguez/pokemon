@@ -1,4 +1,6 @@
 import './pokemonDetail.css';
+import logo from '../../assets/IPokemon.png'
+import pokeball from '../../assets/pokeball1.png'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanDetail, getPokemonDetail } from "../../redux/actions/index";
@@ -25,8 +27,8 @@ const PokemonDetail = (props) => {
     console.log(pokemon);
 
     return(
-        <div>
-            <h3>Pokemon</h3>
+        <div className='pokemon-detail'>
+            <img className='pokemon' src={logo} alt="" />
             { error ? (
                 <Error404/>
             ) :
@@ -36,7 +38,7 @@ const PokemonDetail = (props) => {
                         id={el.id}
                         image={el.img}
                         name={el.name}
-                        type={el.type.join(' ')}
+                        type={el.type.join(', ')}
                         hp={el.hp}
                         attack={el.attack}
                         defense={el.defense}
@@ -46,6 +48,7 @@ const PokemonDetail = (props) => {
                     />
                 }) : <LoadingPage/>
             }
+            <img className='pokeballs' src={pokeball} alt="" />
         </div>
     );
 };

@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: url(../../assets/574726.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'VT323', monospace;
+}
+
+.pokemons{
+    height: 120px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.filters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters ul{
+    margin: 1em;
+}
+
+.filters li{
+    display: inline;
+    margin: 0 2em;
+    list-style: none;
+}
+
+.filters select{
+    font-family: 'VT323', monospace;
+    font-size: 1.5em;
+    background-color: #cdecee;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 3rem;
+    margin: 50px;
+    justify-items: center;
+    align-items: center;
+}
+
+.grid-container a{
+    text-decoration: none;
+    color: black;
+}

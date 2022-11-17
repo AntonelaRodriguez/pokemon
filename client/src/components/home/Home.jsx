@@ -1,4 +1,6 @@
 import React from "react";
+import './home.css'
+import logo from '../../assets/IPokemon.png'
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -43,12 +45,13 @@ const Home = () => {
     const handleFilterTypes = (e) => {
         e.preventDefault();
         dispatch(filterByType(e.target.value));
+        setCurrentPage(1);
     }
 
     const handleFilterCreation = (e) => {
         e.preventDefault();
         dispatch(filterByCreatedMode(e.target.value));
-        console.log(e.target.value)
+        setCurrentPage(1);
     }
 
     const [order, setOrder] = useState("");
@@ -69,9 +72,12 @@ const Home = () => {
     console.log(pokemons)
 
     return(
-        <div>
+        <div className="home">
             <NavBar/>
-            <div id="filters">
+
+            <img className='pokemons' src={logo} alt="" />
+
+            <div className="filters">
             <ul>
                 <li>
                     <select 
@@ -114,23 +120,25 @@ const Home = () => {
             </ul>
             </div>
 
-            <h1>Pokemons</h1>
+            <div className="grid-container">
             { error ? (
                 <Error404/>
             ) :
                 currentsPokemons.length > 0 ? currentsPokemons.map((el) => {
-                    return <Link to={`/home/${el.id}`}>
+                    return <div>
+                    <Link to={`/home/${el.id}`}>
                     <PokemonCard
                         key={el.id}
                         id={el.id}
                         image={el.img}
                         name={el.name}
-                        type={el.type.join(' ')}
+                        type={el.type.join(', ')}
                     />
-                    <hr></hr>
                     </Link>
+                    </div>
                 }) : <LoadingPage/>
             }
+            </div>
             <Pagination
                 pokemonsPerPage={pokemonsPerPage}
                 pokemons={pokemons.length}
