@@ -133,8 +133,8 @@ const Home = () => {
                     return <div>
                     <Link to={`/home/${el.id}`}>
                     <PokemonCard
-                        key={el.id}
                         id={el.id}
+                        key={el.id}
                         image={el.img}
                         name={el.name}
                         type={el.type.join(', ')}

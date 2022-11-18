@@ -1,7 +1,6 @@
 import React from "react";
 import './error404.css'
 import pikachu from '../../assets/pikachu.gif'
-import { Link } from "react-router-dom";
 
 const Error404 = () => {
     return(

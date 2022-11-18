@@ -16,6 +16,7 @@ const NavBar = ({pageToOne}) => {
     },[dispatch]);
 
     const handleClick = (e) => {
+        e.preventDefault();
         dispatch(getAllPokemons());
     };
 
@@ -28,7 +29,7 @@ const NavBar = ({pageToOne}) => {
             </div>
             
             <div className='logo'>
-                <img src={pokeball} className='pokeball'/>
+                <img src={pokeball} alt="pokeball" className='pokeball'/>
             </div>
             
             <div className='searchBar'>

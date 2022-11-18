@@ -12,8 +12,8 @@ const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
         <div className="pagination">
                 {
                     page && page.map((n) => (
-                        <button>
-                            <a onClick={() => pagination(n)}>{n}</a>
+                        <button onClick={() => pagination(n)}>
+                            {n}
                         </button>
                     ))
                 }

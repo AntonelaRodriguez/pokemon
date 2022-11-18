@@ -34,8 +34,8 @@ const PokemonDetail = (props) => {
             ) :
                 pokemon.length > 0 ? pokemon.map((el) => {
                     return <DetailCard
-                        key={el.id}
                         id={el.id}
+                        key={el.id}
                         image={el.img}
                         name={el.name}
                         type={el.type.join(', ')}

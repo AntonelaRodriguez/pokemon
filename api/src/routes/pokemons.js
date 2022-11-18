@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { allInfo, allInfoDetails, pokemonByName } = require('../middlewares/middleware');
+const { allInfo, allInfoDetails, pokemonByName } = require('../controllers/index');
 const { Pokemon, Type } = require('../db');
 
 const router = Router();
@@ -15,14 +15,14 @@ router.get('/', async (req, res) => {
 
             res.status(200).json(pokemon);
         } catch(e) {
-            res.status(404).json(e.message);
+            res.status(404).send(e.message);
         }
     } else{
         try{
             const info = await allInfo();
-            res.status(200).send(info);
+            res.status(200).json(info);
         } catch(e) {
-            res.status(404).json(e.message);
+            res.status(404).send(e.message);
         }
     };
 });
