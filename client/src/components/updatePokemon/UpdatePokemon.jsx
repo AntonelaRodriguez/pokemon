@@ -2,30 +2,23 @@ import React,{ useEffect, useState} from 'react';
 import { updatePokemon, getPokemonDetail, getTypes } from '../../redux/actions';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LoadingPage from "../loadingPage/LoadingPage";
 
 export const validate = (input) => {
     let error = {};
     if(!input.name) error.name = "Pokemon's name is required!";
 
-    if(!input.hp) error.hp = "Pokemon's hp is required!";
     if(input.hp > 100) error.hp = "Your pokemon can't have more than 100 hp.";
     if(input.hp < 0) error.hp = "Your pokemon can't have less than 1 hp.";
 
-    if(!input.attack) error.attack = "Pokemon's attack is required!";
     if(input.attack > 100) error.attack = "Your pokemon can't have more than 100 of attack power.";
     if(input.attack < 0) error.attack = "Your pokemon can't have less than 1 of attack power.";
 
-    if(!input.defense) error.defense = "Pokemon's defense is required!";
     if(input.defense > 100) error.defense = "Your pokemon can't have more than 100 of defense.";
     if(input.defense < 0) error.defense = "Your pokemon can't have less than 1 of defense.";
 
-    if(!input.speed) error.speed = "Pokemon's speed is required!";
     if(input.speed > 100) error.speed = "Your pokemon can't have more than 100 of speed.";
     if(input.speed < 0) error.speed = "Your pokemon can't have less than 1 of speed.";
-
-    if(input.type.length === 0) error.type = "Pokemon's type is required!";
-
-    if(!input.img) error.img = "Pokemon's image is required!";
 
     return error;
 }
@@ -37,15 +30,15 @@ const UpdatePokemon = (props) => {
     const pokemonId = props.match.params.id;
    
     const [input, setInput] = useState({
-        name: "",
-        hp: "",
-        attack: "",
-        defense: "",
-        speed: "",
-        height: "",
-        weight: "",
-        type: [],
-        img: "",
+        name: pokemon.name,
+        hp: pokemon.hp,
+        attack: pokemon.attack,
+        defense: pokemon.defense,
+        speed: pokemon.speed,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        type: pokemon.type,
+        img: pokemon.img,
     });
 
     const [error, setError] = useState({});
@@ -80,9 +73,21 @@ const UpdatePokemon = (props) => {
         });
     };
 
+    const updated = {
+        name: input.name === "" ? pokemon.name : input.name,
+        hp: input.hp === "" ? pokemon.hp : input.hp,
+        attack: input.attack === "" ? pokemon.attack : input.attack,
+        defense: input.defense === "" ? pokemon.defense : input.defense,
+        speed: input.speed === "" ? pokemon.speed : input.speed,
+        height: input.height === "" ? pokemon.height : input.height,
+        weight: input.weight === "" ? pokemon.weight : input.weight,
+        type: input.type === [] ? pokemon.type : input.type,
+        img: input.img === "" ? pokemon.img : input.img,
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(updatePokemon(pokemonId, input));
+        dispatch(updatePokemon(pokemonId, updated));
         alert("Pokemon successfully updated! Find your updated Pokemon on your Pokedex!");
         setInput({
             name:"",
@@ -99,6 +104,7 @@ const UpdatePokemon = (props) => {
 
     return(
         <div className="create">
+            {Object.keys(pokemon).length !== 0 ?
             <div className='create-info'>
             <h2>Let's update your own Pokemon!</h2>
             <h2>{pokemon.name}</h2>
@@ -193,7 +199,6 @@ const UpdatePokemon = (props) => {
 
                 <label>Types:</label>
                 <select 
-                    disabled={input.type.length > 2}
                     onChange={(e) => handleSelect(e)}
                     defaultValue="title"
                 >
@@ -230,6 +235,7 @@ const UpdatePokemon = (props) => {
             </form>
             <Link to='/home'><button className='btn-home'>Got to your Pokedex!</button></Link>
             </div>
+            :<LoadingPage/>}
         </div>
     )
 };
