@@ -104,10 +104,11 @@ const UpdatePokemon = (props) => {
 
     return(
         <div className="create">
-            {Object.keys(pokemon).length !== 0 ?
             <div className='create-info'>
+            {Object.keys(pokemon).length !== 0 ?
+            <>
             <h2>Let's update your own Pokemon!</h2>
-            <h2>{pokemon.name}</h2>
+            <h2>{pokemon.name.toUpperCase()}</h2>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <label>Name:</label>
                 <input
@@ -234,8 +235,9 @@ const UpdatePokemon = (props) => {
                 <button className='btn-create' type="submit" disabled={Object.keys(error).length === 0 ? false : true}>Update Pokemon !</button>
             </form>
             <Link to='/home'><button className='btn-home'>Got to your Pokedex!</button></Link>
-            </div>
+            </>
             :<LoadingPage/>}
+            </div>
         </div>
     )
 };
