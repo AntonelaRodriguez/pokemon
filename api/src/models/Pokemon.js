@@ -54,6 +54,7 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.STRING,
+      defaultValue: "https://c.tenor.com/F30e8arYkdYAAAAC/pokemon-spinning.gif",
     },
     // Para hacer una distincion entre lo que trae la api y la base de datos
     createdInDb: {

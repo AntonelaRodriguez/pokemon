@@ -1,4 +1,3 @@
-import './updatePokemon.css';
 import React,{ useEffect, useState} from 'react';
 import { updatePokemon, getPokemonDetail, getTypes } from '../../redux/actions';
 import { useDispatch, useSelector } from "react-redux";

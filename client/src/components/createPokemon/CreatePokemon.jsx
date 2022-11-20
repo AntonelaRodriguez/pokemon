@@ -8,17 +8,29 @@ export const validate = (input) => {
     let error = {};
     if(!input.name) error.name = "Pokemon's name is required!";
 
+    if(!input.hp) error.hp = "Pokemon's hp is required!";
     if(input.hp > 100) error.hp = "Your pokemon can't have more than 100 hp.";
     if(input.hp < 0) error.hp = "Your pokemon can't have less than 1 hp.";
 
+    if(!input.attack) error.attack = "Pokemon's attack is required!";
     if(input.attack > 100) error.attack = "Your pokemon can't have more than 100 of attack power.";
     if(input.attack < 0) error.attack = "Your pokemon can't have less than 1 of attack power.";
 
+    if(!input.defense) error.defense = "Pokemon's defense is required!";
     if(input.defense > 100) error.defense = "Your pokemon can't have more than 100 of defense.";
     if(input.defense < 0) error.defense = "Your pokemon can't have less than 1 of defense.";
 
+    if(!input.speed) error.speed = "Pokemon's speed is required!";
     if(input.speed > 100) error.speed = "Your pokemon can't have more than 100 of speed.";
     if(input.speed < 0) error.speed = "Your pokemon can't have less than 1 of speed.";
+
+    if(!input.weight) error.weight = "Pokemon's weight is required!";
+    
+    if(!input.height) error.height = "Pokemon's height is required!";
+
+    if(input.type.length === 0) error.type = "Pokemon's type is required!";
+
+    if(!input.img) error.img = "Pokemon's image is required!";
 
     return error;
 }
@@ -171,6 +183,11 @@ const CreatePokemon = () => {
                     placeholder="Type the height of your pokemon..."
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.height && (
+                        <p className="danger">{error.height}</p>
+                    )
+                }
 
                 <label>Weight:</label>
                 <input
@@ -180,6 +197,11 @@ const CreatePokemon = () => {
                     placeholder="Type the weight of your pokemon..."
                     onChange={(e) => handleChange(e)}
                 />
+                {
+                    error.weight && (
+                        <p className="danger">{error.weight}</p>
+                    )
+                }
 
                 <label>Types:</label>
                 <select 
@@ -207,6 +229,12 @@ const CreatePokemon = () => {
                     </div>
                     )
                 })}
+                {
+                    error.type && (
+                        <p className="danger">{error.type}</p>
+                    )
+                }
+
                 <label>Pokemon image: </label>
                 <input 
                 type="url"
@@ -215,6 +243,11 @@ const CreatePokemon = () => {
                 placeholder="Url image..."
                 onChange={(e) => handleChange(e)}
                  />
+                 {
+                    error.img && (
+                        <p className="danger">{error.img}</p>
+                    )
+                }
 
                 <button className='btn-create' type="submit" disabled={Object.keys(error).length === 0 ? false : true}>Create Pokemon !</button>
             </form>
