@@ -1,7 +1,7 @@
 import React from "react";
 import './pagination.css';
 
-const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
+const Pagination = ({pokemonsPerPage,pokemons,pagination,prev,next}) => {
     const page = [];
     
     for(let i=1; i <= Math.ceil(pokemons/pokemonsPerPage); i++) {
@@ -9,7 +9,10 @@ const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
     };
 
     return(
-        <div className="pagination">
+        <div className="page">
+            <button className="prevNext" onClick={() => prev()}>PREV</button>
+            <div className="pagination">
+                
                 {
                     page && page.map((n) => (
                         <button onClick={() => pagination(n)}>
@@ -17,6 +20,8 @@ const Pagination = ({pokemonsPerPage,pokemons,pagination}) => {
                         </button>
                     ))
                 }
+            </div>
+            <button className="prevNext" onClick={() => next()}>NEXT</button>
         </div>
     )
 };

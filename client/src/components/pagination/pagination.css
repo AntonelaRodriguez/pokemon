@@ -1,3 +1,8 @@
+.page{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 .pagination{
     display: flex;
     justify-content: center;
@@ -7,12 +12,24 @@
 .pagination button{
     display: inline;
     margin: 0 0.5em;
-    list-style: none;
     background-color: #d7e5c4;
     font-size: 1.2em;
     margin-top: 20px;
     margin-bottom: 20px;
     border: 3px solid black;
     width: 40px;
+    cursor: pointer;
+}
+
+.prevNext{
+    display: inline;
+    margin: 0 0.5em;
+    list-style: none;
+    background-color: #d7e5c4;
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid black;
+    width: 70px;
     cursor: pointer;
 }

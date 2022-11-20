@@ -41,6 +41,14 @@ const Home = () => {
         setCurrentPage(page);
     };
 
+    const prev = () => {
+        setCurrentPage(currentPage - 1);
+    }
+
+    const next = () => {
+        setCurrentPage(currentPage + 1);
+    }
+
     //-------------------FILTERS----------------//
     const handleFilterTypes = (e) => {
         e.preventDefault();
@@ -149,6 +157,8 @@ const Home = () => {
                 pokemonsPerPage={pokemonsPerPage}
                 pokemons={pokemons.length}
                 pagination={pagination}
+                prev={prev}
+                next={next}
             />
         </div>
     )
