@@ -96,7 +96,7 @@ const allInfoDetails = async (id) => {
             },
             include: Type,
           });
-          const pokemonInfoDb = [
+          const pokemonInfoDb =
             {
               id: pokemonDb.id,
               img: pokemonDb.img,
@@ -109,15 +109,15 @@ const allInfoDetails = async (id) => {
               height: pokemonDb.height,
               weight: pokemonDb.weight,
               createdInDb: pokemonDb.createdInDb,
-            },
-          ];
+            }
+          ;
           return pokemonInfoDb;
     } else {
         
         const pokemonApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
             .then(response => response.data);
             
-        const pokemonInfoApi = [
+        const pokemonInfoApi = 
           {
             id: pokemonApi.id,
             img: pokemonApi.sprites.versions["generation-v"]["black-white"].animated
@@ -131,8 +131,8 @@ const allInfoDetails = async (id) => {
             height: pokemonApi.height,
             weight: pokemonApi.weight,
             createdInDb: false,
-          },
-        ];
+          }
+        ;
         return pokemonInfoApi;
     }
     } catch(e){

@@ -4,7 +4,6 @@ import pokeball from '../../assets/pokeball1.png'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanDetail, deletePokemon, getPokemonDetail } from "../../redux/actions/index";
-import DetailCard from '../detailCard/DetailCard';
 import LoadingPage from '../loadingPage/LoadingPage';
 import Error404 from '../error404/error404';
 import { useHistory } from 'react-router-dom';
@@ -26,50 +25,48 @@ const PokemonDetail = (props) => {
 
     const pokemon = useSelector((state) => state.pokemonDetail);
     const error = useSelector((state) => state.error);
-    console.log(pokemon);
 
+    console.log(pokemon.type)
+    console.log(pokemon)
     const handleUpdate = () => {
-        pokemon.map((el) => {
-            if(el.createdInDb === true){
+        if(pokemon.createdInDb === true){
                 history.push(`/update/${pokemonId}`);
-            } else {
+        } else {
                 alert("You can't update an original pokemon.")
-            }
-        })
+        }
     }
     const handleDelete = () => {
-        pokemon.map((el) => {
-            if(el.createdInDb === true){
-                dispatch(deletePokemon(pokemonId));
-                console.log(pokemonId)
-                alert("Your pokemon has been succesfully deleted.")
-            } else {
+        if(pokemon.createdInDb === true){
+            dispatch(deletePokemon(pokemonId));
+            alert("Your pokemon has been succesfully deleted.")
+        } else {
                 alert("You can't delete an original pokemon.")
-            }
-        })
+        }
     }
 
     return(
         <div className='pokemon-detail'>
             <img className='pokemon' src={logo} alt="" />
-            { error ? (
-                <Error404/>
-            ) :
-                pokemon.length > 0 ? pokemon.map((el) => {
-                    return <DetailCard
-                        id={el.id}
-                        key={el.id}
-                        image={el.img}
-                        name={el.name}
-                        type={el.type.join(', ')}
-                        hp={el.hp}
-                        attack={el.attack}
-                        defense={el.defense}
-                        speed={el.speed}
-                        height={el.height}
-                        weight={el.weight}
-                    />
-                }) : <LoadingPage/>
+            { error ? <Error404/> :
+            <div className='card-detail'>
+                { Object.keys(pokemon).length !== 0 ?
+                <>
+                <img src={pokemon.img} alt='Not found' />
+                <h3>{pokemon.name.toUpperCase()}</h3>
+                <h5>Type: {pokemon.type.join(', ')}.</h5>
+                <h4>ID: {pokemon.id}.</h4>
+                <h4>HP: {pokemon.hp}.</h4>
+                <h4>Statistics: </h4>
+                <ul>
+                    <li>Attack: {pokemon.attack}.</li>
+                    <li>Defense: {pokemon.defense}.</li>
+                    <li>Speed: {pokemon.speed}.</li>
+                </ul>
+                <h4>Height: {pokemon.height}.</h4>
+                <h4>Weight: {pokemon.weight}.</h4>
+                </>
+                : <LoadingPage/> }
+            </div>
             }
             <button className='btn-create' onClick={() => handleUpdate()}>UPDATE</button>
             <button className='btn-create' onClick={() => handleDelete()}>DELETE</button>

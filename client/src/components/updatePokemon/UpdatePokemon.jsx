@@ -101,11 +101,7 @@ const UpdatePokemon = (props) => {
         <div className="create">
             <div className='create-info'>
             <h2>Let's update your own Pokemon!</h2>
-            {
-                pokemon.length > 0 && pokemon.map((el) =>{
-                    return <h2>{el.name.toUpperCase()}</h2>
-                })
-            }
+            <h2>{pokemon.name}</h2>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <label>Name:</label>
                 <input

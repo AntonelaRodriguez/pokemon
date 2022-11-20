@@ -1,7 +1,7 @@
 const initialState = {
     allPokemons: [],
     pokemons: [],
-    pokemonDetail: [],
+    pokemonDetail: {},
     allTypes:[],
     error: null,
 };
