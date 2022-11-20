@@ -8,6 +8,7 @@ const DetailCard =({image, name, type, id, hp, attack, defense, speed, height, w
             <h3>{name.toUpperCase()}</h3>
             <h5>Type: {type}.</h5>
             <h4>ID: {id}.</h4>
+            <h4>HP: {hp}.</h4>
             <h4>Statistics: </h4>
             <ul>
                 <li>Attack: {attack}.</li>

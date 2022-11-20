@@ -92,6 +92,17 @@ export const cleanDetail = () => {
     };
 };
 
+export const updatePokemon = (id, updatedPokemon) => {
+    return async function(dispatch){
+        try{
+            let pokemon = await axios.put(`http://localhost:3001/pokemons/update/${id}`,updatedPokemon);
+            return pokemon;
+        } catch(e) {
+            console.log(e);
+        };
+    };
+};
+
 export const deletePokemon = (id) => {
     return async function(dispatch){
         try{
@@ -100,5 +111,5 @@ export const deletePokemon = (id) => {
         } catch(e) {
             console.log(e);
         };
-    }
-}
+    };
+};

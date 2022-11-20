@@ -116,6 +116,10 @@ const rootReducer = (state = initialState, action) => {
               ...state,
               error: action.payload
             }
+          case 'UPDATE_POKEMON':
+            return{
+              ...state
+            }
           case 'DELETE_POKEMON':
             return{
               ...state

@@ -74,6 +74,37 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.put('/update/:id', async (req, res) =>{ 
+    try{
+        const { id } = req.params;
+        const { name, hp, attack, defense, speed, height, weight, img, type } = req.body;
+        if(id.length > 3){
+            const pokemon = await Pokemon.findByPk(id);
+            await pokemon.update({
+                name,
+                hp,
+                defense,
+                speed,
+                height,
+                weight,
+                attack,
+                img
+            }, { where: { id: id }});
+
+            const newType = await Type.findAll({
+                where: { name: type }, 
+            })
+            pokemon.setTypes(newType);
+            res.status(200).send("Pokemon successfully updated.");
+        } else {
+            throw new Error("You can't update an original pokemon.");
+        }
+    }catch(e){
+        res.status(404). send(e.message);
+    };
+});
+
+
 router.delete('/delete/:id', async (req, res) => {
     try{
         const { id } = req.params;

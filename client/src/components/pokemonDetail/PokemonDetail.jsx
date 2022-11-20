@@ -7,12 +7,14 @@ import { cleanDetail, deletePokemon, getPokemonDetail } from "../../redux/action
 import DetailCard from '../detailCard/DetailCard';
 import LoadingPage from '../loadingPage/LoadingPage';
 import Error404 from '../error404/error404';
+import { useHistory } from 'react-router-dom';
 
 
 const PokemonDetail = (props) => {
 
     const dispatch = useDispatch();
     const pokemonId = props.match.params.id;
+    const history = useHistory();
     
 
     useEffect(() =>{
@@ -26,6 +28,15 @@ const PokemonDetail = (props) => {
     const error = useSelector((state) => state.error);
     console.log(pokemon);
 
+    const handleUpdate = () => {
+        pokemon.map((el) => {
+            if(el.createdInDb === true){
+                history.push(`/update/${pokemonId}`);
+            } else {
+                alert("You can't update an original pokemon.")
+            }
+        })
+    }
     const handleDelete = () => {
         pokemon.map((el) => {
             if(el.createdInDb === true){
@@ -60,7 +71,8 @@ const PokemonDetail = (props) => {
                     />
                 }) : <LoadingPage/>
             }
-            <button onClick={() => handleDelete()}>DELETE</button>
+            <button className='btn-create' onClick={() => handleUpdate()}>UPDATE</button>
+            <button className='btn-create' onClick={() => handleDelete()}>DELETE</button>
             <img className='pokeballs' src={pokeball} alt="" />
         </div>
     );
