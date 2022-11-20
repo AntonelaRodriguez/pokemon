@@ -3,7 +3,7 @@ import logo from '../../assets/IPokemon.png'
 import pokeball from '../../assets/pokeball1.png'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cleanDetail, getPokemonDetail } from "../../redux/actions/index";
+import { cleanDetail, deletePokemon, getPokemonDetail } from "../../redux/actions/index";
 import DetailCard from '../detailCard/DetailCard';
 import LoadingPage from '../loadingPage/LoadingPage';
 import Error404 from '../error404/error404';
@@ -25,6 +25,18 @@ const PokemonDetail = (props) => {
     const pokemon = useSelector((state) => state.pokemonDetail);
     const error = useSelector((state) => state.error);
     console.log(pokemon);
+
+    const handleDelete = () => {
+        pokemon.map((el) => {
+            if(el.createdInDb === true){
+                dispatch(deletePokemon(pokemonId));
+                console.log(pokemonId)
+                alert("Your pokemon has been succesfully deleted.")
+            } else {
+                alert("You can't delete an original pokemon.")
+            }
+        })
+    }
 
     return(
         <div className='pokemon-detail'>
@@ -48,6 +60,7 @@ const PokemonDetail = (props) => {
                     />
                 }) : <LoadingPage/>
             }
+            <button onClick={() => handleDelete()}>DELETE</button>
             <img className='pokeballs' src={pokeball} alt="" />
         </div>
     );

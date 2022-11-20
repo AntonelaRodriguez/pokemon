@@ -91,3 +91,14 @@ export const cleanDetail = () => {
         type: 'CLEAN_DETAIL',
     };
 };
+
+export const deletePokemon = (id) => {
+    return async function(dispatch){
+        try{
+            let pokemon = await axios.delete(`http://localhost:3001/pokemons/delete/${id}`);
+            return pokemon;
+        } catch(e) {
+            console.log(e);
+        };
+    }
+}

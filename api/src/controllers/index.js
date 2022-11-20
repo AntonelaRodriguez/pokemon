@@ -108,6 +108,7 @@ const allInfoDetails = async (id) => {
               speed: pokemonDb.speed,
               height: pokemonDb.height,
               weight: pokemonDb.weight,
+              createdInDb: pokemonDb.createdInDb,
             },
           ];
           return pokemonInfoDb;
@@ -129,6 +130,7 @@ const allInfoDetails = async (id) => {
             speed: pokemonApi.stats[5].base_stat,
             height: pokemonApi.height,
             weight: pokemonApi.weight,
+            createdInDb: false,
           },
         ];
         return pokemonInfoApi;
