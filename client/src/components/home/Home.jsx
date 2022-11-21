@@ -62,13 +62,13 @@ const Home = () => {
         setCurrentPage(1);
     }
 
-    const [order, setOrder] = useState("");
+    const [order, setOrder] = useState(""); // estado local vacio
 
     const orderAlph = (e) => {
         e.preventDefault();
         dispatch(orderbyAlphabet(e.target.value));
         setCurrentPage(1);
-        setOrder(`Ordered ${e.target.value}`);
+        setOrder(`Ordered ${e.target.value}`); // para que cuando setTeo la pagina en uno me modifique el estado local y me renderice
     };
 
     const orderAttack = (e) => {
