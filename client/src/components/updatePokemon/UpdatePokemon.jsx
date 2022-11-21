@@ -6,7 +6,6 @@ import LoadingPage from "../loadingPage/LoadingPage";
 
 export const validate = (input) => {
     let error = {};
-    if(!input.name) error.name = "Pokemon's name is required!";
 
     if(input.hp > 100) error.hp = "Your pokemon can't have more than 100 hp.";
     if(input.hp < 0) error.hp = "Your pokemon can't have less than 1 hp.";

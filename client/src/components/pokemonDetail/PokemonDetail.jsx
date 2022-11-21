@@ -28,6 +28,7 @@ const PokemonDetail = (props) => {
 
     console.log(pokemon.type)
     console.log(pokemon)
+
     const handleUpdate = () => {
         if(pokemon.createdInDb === true){
                 history.push(`/update/${pokemonId}`);
@@ -35,6 +36,7 @@ const PokemonDetail = (props) => {
                 alert("You can't update an original pokemon.")
         }
     }
+    
     const handleDelete = () => {
         if(pokemon.createdInDb === true){
             dispatch(deletePokemon(pokemonId));

@@ -100,7 +100,7 @@ router.put('/update/:id', async (req, res) =>{
             throw new Error("You can't update an original pokemon.");
         }
     }catch(e){
-        res.status(404). send(e.message);
+        res.status(404).send(e.message);
     };
 });
 
