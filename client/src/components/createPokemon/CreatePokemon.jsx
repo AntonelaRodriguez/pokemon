@@ -8,29 +8,17 @@ export const validate = (input) => {
     let error = {};
     if(!input.name) error.name = "Pokemon's name is required!";
 
-    if(!input.hp) error.hp = "Pokemon's hp is required!";
     if(input.hp > 100) error.hp = "Your pokemon can't have more than 100 hp.";
     if(input.hp < 0) error.hp = "Your pokemon can't have less than 1 hp.";
 
-    if(!input.attack) error.attack = "Pokemon's attack is required!";
     if(input.attack > 100) error.attack = "Your pokemon can't have more than 100 of attack power.";
     if(input.attack < 0) error.attack = "Your pokemon can't have less than 1 of attack power.";
 
-    if(!input.defense) error.defense = "Pokemon's defense is required!";
     if(input.defense > 100) error.defense = "Your pokemon can't have more than 100 of defense.";
     if(input.defense < 0) error.defense = "Your pokemon can't have less than 1 of defense.";
 
-    if(!input.speed) error.speed = "Pokemon's speed is required!";
     if(input.speed > 100) error.speed = "Your pokemon can't have more than 100 of speed.";
     if(input.speed < 0) error.speed = "Your pokemon can't have less than 1 of speed.";
-
-    if(!input.weight) error.weight = "Pokemon's weight is required!";
-    
-    if(!input.height) error.height = "Pokemon's height is required!";
-
-    if(input.type.length === 0) error.type = "Pokemon's type is required!";
-
-    if(!input.img) error.img = "Pokemon's image is required!";
 
     return error;
 }
@@ -83,9 +71,21 @@ const CreatePokemon = () => {
         });
     };
 
+    const created = {
+        name: input.name,
+        hp: input.hp === "" ? 1 : input.hp,
+        attack: input.attack === "" ? 0 : input.attack,
+        defense: input.defense === "" ? 0 : input.defense,
+        speed: input.speed === "" ? 0 : input.speed,
+        height: input.height === "" ? 1 : input.height,
+        weight: input.weight === "" ? 1 : input.weight,
+        type: input.type === [] ? ["unknown"] : input.type,
+        img: input.img === "" ? "not found" : input.img,
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(postPokemon(input));
+        dispatch(postPokemon(created));
         alert("Pokemon successfully created! Find your created Pokemon on your Pokedex!");
         setInput({
             name: "",
