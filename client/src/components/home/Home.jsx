@@ -42,11 +42,11 @@ const Home = () => {
     };
 
     const prev = () => {
-        setCurrentPage(currentPage - 1);
+        if(currentPage > 1) setCurrentPage(currentPage - 1);
     }
 
     const next = () => {
-        setCurrentPage(currentPage + 1);
+        if(currentPage < 1) setCurrentPage(currentPage + 1);
     }
 
     //-------------------FILTERS----------------//
