@@ -68,7 +68,7 @@ const Home = () => {
         e.preventDefault();
         dispatch(orderbyAlphabet(e.target.value));
         setCurrentPage(1);
-        setOrder(`Ordered ${e.target.value}`); // para que cuando setTeo la pagina en uno me modifique el estado local y me renderice
+        setOrder(`Ordered ${e.target.value}`); // para que cuando setteo la pagina en uno me modifique el estado local y me renderice
     };
 
     const orderAttack = (e) => {
