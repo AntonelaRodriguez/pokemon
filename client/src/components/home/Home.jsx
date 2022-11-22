@@ -1,7 +1,7 @@
 import React from "react";
 import './home.css'
 import logo from '../../assets/IPokemon.png';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { 
@@ -11,6 +11,7 @@ import {
     filterByCreatedMode,
     orderbyAlphabet,
     orderByAttack,
+    cleanHome
 } from "../../redux/actions/index";
 import NavBar from "../navBar/NavBar";
 import Pagination from "../pagination/Pagination";
@@ -25,10 +26,23 @@ const Home = () => {
     const types = useSelector((state) => state.allTypes);
     const error = useSelector((state) => state.error);
 
+    // useEffect(() => {
+    //     dispatch(getAllPokemons());
+    //     dispatch(getTypes());
+    // },[dispatch]);
+
+    let executeCallBack = useRef(false);
     useEffect(() => {
-        dispatch(getAllPokemons());
+        if(executeCallBack.current === true){
+            dispatch(getAllPokemons());
+        }
         dispatch(getTypes());
-    },[dispatch]);
+        console.log("use effect run once");
+        executeCallBack.current = true;
+        return function(){
+            dispatch(cleanHome())
+        }
+    }, []);
     
     //-------------- PAGINATION ------------------//
     const [currentPage, setCurrentPage] = useState(1);

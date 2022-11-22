@@ -92,6 +92,12 @@ export const cleanDetail = () => {
     };
 };
 
+export const cleanHome = () => {
+    return{
+        type: 'CLEAN_HOME',
+    };
+};
+
 export const updatePokemon = (id, updatedPokemon) => {
     return async function(dispatch){
         try{

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cleanDetail, deletePokemon, getPokemonDetail } from "../../redux/actions/index";
 import LoadingPage from '../loadingPage/LoadingPage';
 import Error404 from '../error404/error404';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 
 const PokemonDetail = (props) => {
@@ -72,6 +72,7 @@ const PokemonDetail = (props) => {
             }
             <button className='btn-create' onClick={() => handleUpdate()}>UPDATE</button>
             <button className='btn-create' onClick={() => handleDelete()}>DELETE</button>
+            <Link to='/home'><button className='btn-home'>Got to your Pokedex!</button></Link>
             <img className='pokeballs' src={pokeball} alt="" />
         </div>
     );

@@ -111,6 +111,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             pokemonDetail: {},
           };
+        case 'CLEAN_HOME':
+          return{
+            ...state,
+            allPokemons: [],
+          };
           case 'ERROR_404':
             return{
               ...state,
