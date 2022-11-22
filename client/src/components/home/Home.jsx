@@ -1,7 +1,7 @@
 import React from "react";
 import './home.css'
 import logo from '../../assets/IPokemon.png';
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { 
@@ -26,23 +26,13 @@ const Home = () => {
     const types = useSelector((state) => state.allTypes);
     const error = useSelector((state) => state.error);
 
-    // useEffect(() => {
-    //     dispatch(getAllPokemons());
-    //     dispatch(getTypes());
-    // },[dispatch]);
-
-    let executeCallBack = useRef(false);
     useEffect(() => {
-        if(executeCallBack.current === true){
-            dispatch(getAllPokemons());
-        }
+        dispatch(getAllPokemons());
         dispatch(getTypes());
-        console.log("use effect run once");
-        executeCallBack.current = true;
         return function(){
             dispatch(cleanHome())
-        }
-    }, []);
+            }
+    },[]);
     
     //-------------- PAGINATION ------------------//
     const [currentPage, setCurrentPage] = useState(1);
@@ -152,7 +142,7 @@ const Home = () => {
             <div className="grid-container">
             { 
                 currentsPokemons.length > 0 ? currentsPokemons.map((el) => {
-                    return <div>
+                    return <div key={el.id}>
                     <Link to={`/home/${el.id}`}>
                     <PokemonCard
                         id={el.id}

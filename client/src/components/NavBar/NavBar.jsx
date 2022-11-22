@@ -4,16 +4,10 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import SearchBar from '../searchBar/SearchBar';
 import { getAllPokemons } from "../../redux/actions/index";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const NavBar = ({pageToOne}) => {
     const dispatch = useDispatch();
-    const pokemons = useSelector((state) => state.allPokemons);
-
-    useEffect(() => {
-        dispatch(getAllPokemons());
-    },[dispatch]);
 
     const handleClick = (e) => {
         e.preventDefault();
