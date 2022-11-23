@@ -4,6 +4,8 @@ const initialState = {
     pokemonDetail: {},
     allTypes:[],
     error: null,
+    filterT: [],
+    filterO: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -13,6 +15,8 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             allPokemons: action.payload,
             pokemons: action.payload,
+            filterT: action.payload,
+            filterO: action.payload
           };
         case 'GET_POKEMON_BY_NAME':
             return{
@@ -39,18 +43,26 @@ const rootReducer = (state = initialState, action) => {
           : abAllPokemons.filter((el) => 
             el.type.map((t)=> t).includes(action.payload)
           );
+          const mixed1 = state.filterO.length > 0
+          ? filterType.filter((poks) => state.filterO.includes(poks))
+          : filterType;
           return{
             ...state,
-            allPokemons: filterType,
+            filterT: filterType,
+            allPokemons: mixed1,
           };
         case 'FILTER_BY_CREATED_MODE':
           const abAllPokemons1 = state.pokemons;
           const filterExistance = action.payload === "created" 
           ? abAllPokemons1.filter(el => el.createdInDb === true)
           : abAllPokemons1.filter(el => el.createdInDb === false);
+          const mixed2 = state.filterT.length > 0
+          ? filterExistance.filter((pokes) => state.filterT.includes(pokes))
+          : filterExistance;
           return {
             ...state,
-            allPokemons: action.payload === "all" ? state.pokemons : filterExistance,
+            filterO: filterExistance,
+            allPokemons: mixed2
           };
         case 'ORDER_BY_ALPHABET':
           const abAllPokemons2 = state.allPokemons;
