@@ -1,7 +1,7 @@
 import'./createPokemon.css';
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postPokemon, getTypes } from "../../redux/actions/index";
+import { postPokemon, getTypes, getPokemonByName } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 
 export const validate = (input) => {
@@ -84,6 +84,9 @@ const CreatePokemon = () => {
     }
 
     const handleSubmit = (event) => {
+        if(dispatch(getPokemonByName(created.name))){
+            alert("That Pokemon already exists, please change the name!");
+        } else {
         event.preventDefault();
         dispatch(postPokemon(created));
         alert("Pokemon successfully created! Find your created Pokemon on your Pokedex!");
@@ -98,6 +101,7 @@ const CreatePokemon = () => {
             type: [],
             img: "",
         });
+        }
     };
 
     return(
