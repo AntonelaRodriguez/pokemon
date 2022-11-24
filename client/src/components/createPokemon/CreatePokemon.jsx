@@ -79,8 +79,8 @@ const CreatePokemon = () => {
         speed: input.speed === "" ? 0 : input.speed,
         height: input.height === "" ? 1 : input.height,
         weight: input.weight === "" ? 1 : input.weight,
-        type: input.type === [] ? ["unknown"] : input.type,
-        img: input.img === "" ? "not found" : input.img,
+        type: input.type,
+        img: input.img === "" ? "https://art.pixilart.com/eb39e5e2deb7e3a.gif" : input.img,
     }
 
     const handleSubmit = (event) => {

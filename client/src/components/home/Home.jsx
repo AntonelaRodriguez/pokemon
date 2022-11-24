@@ -115,7 +115,6 @@ const Home = () => {
                 <li>
                     <select defaultValue="title" onChange={(e) => handleFilterCreation(e)}>
                         <option value="title" disabled>Filter by Existing or Created:</option>
-                        <option value="all">All</option>
                         <option value="created">Created</option>
                         <option value="existing">Existing</option>
                     </select>
